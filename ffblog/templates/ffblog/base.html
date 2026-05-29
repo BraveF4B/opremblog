@@ -146,14 +146,6 @@
                 </ul>
 
                 <div class="d-flex align-items-center gap-2">
-                    {% if user.is_authenticated %}
-                        <span class="text-white small">Hello, {{ user.get_full_name|default:user.username }}</span>
-                        <a href="/post/create/" class="btn btn-outline-light btn-sm">Add New Post</a>
-                        <a href="/logout/" class="btn btn-danger btn-sm">Logout</a>
-                    {% else %}
-                        <a href="/accounts/login/" class="btn btn-outline-light btn-sm">Login</a>
-                        <a href="/register/" class="btn btn-success btn-sm">Register</a>
-                    {% endif %}
                 </div>
             </div>
         </div>

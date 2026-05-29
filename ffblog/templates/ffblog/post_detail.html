@@ -34,15 +34,9 @@
 
         <!-- Like Button -->
         <div class="d-flex align-items-center gap-3 mt-4 mb-3">
-            {% if user.is_authenticated %}
-                <a href="/post/{{ post.id }}/like/" class="btn {% if is_liked %}btn-danger{% else %}btn-outline-danger{% endif %} px-4">
-                    ❤️ {% if is_liked %}Unlike{% else %}Like{% endif %} &nbsp;{{ total_likes }}
-                </a>
-            {% else %}
-                <a href="/accounts/login/" class="btn btn-outline-danger px-4">
-                    ❤️ Like &nbsp;{{ total_likes }}
-                </a>
-            {% endif %}
+            <a href="/post/{{ post.id }}/like/" class="btn {% if is_liked %}btn-danger{% else %}btn-outline-danger{% endif %} px-4">
+    ❤️ {% if is_liked %}Unlike{% else %}Like{% endif %} &nbsp;{{ total_likes }}
+</a>
         </div>
 
         <!-- Social Share Buttons -->

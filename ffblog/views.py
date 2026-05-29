@@ -54,9 +54,9 @@ def post_detail(request, pk):
             )
             return redirect('post_detail', pk=post.id)
 
-    is_liked = False
-    if request.user.is_authenticated:
-        is_liked = post.likes.filter(id=request.user.id).exists()
+    liked_posts = request.session.get('liked_posts', [])
+    is_liked = pk in liked_posts
+
 
     return render(request, 'ffblog/post_detail.html', {
         'post': post,
@@ -65,13 +65,15 @@ def post_detail(request, pk):
         'total_likes': post.total_likes(),
     })
 
-@login_required
 def like_post(request, pk):
     post = get_object_or_404(Post, id=pk)
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
+    liked_posts = request.session.get('liked_posts', [])
+    if pk in liked_posts:
+        liked_posts.remove(pk)
+        post.likes.remove(request.user) if request.user.is_authenticated else None
     else:
-        post.likes.add(request.user)
+        liked_posts.append(pk)
+    request.session['liked_posts'] = liked_posts
     return redirect('post_detail', pk=post.id)
 
 def delete_comment(request, pk):
